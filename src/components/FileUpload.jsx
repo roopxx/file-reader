@@ -1,11 +1,18 @@
 import { useRef } from "react";
 import { MdDriveFolderUpload } from "react-icons/md";
 
-export default function FileUpload() {
+export default function FileUpload({ onUpload }) {
   const fileInputRef = useRef(null);
 
-  const handleFileUpload = () => {
-    fileInputRef.current.click();
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      onUpload(e.target.result);
+    };
+
+    reader.readAsText(file);
   };
 
   return (
@@ -15,12 +22,18 @@ export default function FileUpload() {
       </h1>
       <button
         className="flex gap-4 items-center justify-center bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 cursor-pointer"
-        onClick={handleFileUpload}
+        onClick={() => fileInputRef.current.click()}
       >
         <MdDriveFolderUpload className="text-white text-2xl" />
         Upload
       </button>
-      <input className="hidden" ref={fileInputRef} type="file" id="file" />
+      <input
+        className="hidden"
+        onChange={handleFileUpload}
+        ref={fileInputRef}
+        type="file"
+        id="file"
+      />
     </>
   );
 }
