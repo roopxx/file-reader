@@ -6,6 +6,16 @@ export default function FileUpload({ onUpload }) {
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
+
+    if (!file || !file.type.includes("text")) {
+      alert("Please upload a text file.");
+      onUpload(
+        `This file format is not supported: ${file.type || "unknown file type"}.
+        Please upload a text file and try again..`
+      );
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = (e) => {
