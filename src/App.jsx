@@ -15,7 +15,7 @@ function App() {
       <NavBar />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-7xl py-6">
         <FileUpload onUpload={handleFileUpload} />
-        <SearchBox />
+        <SearchBox content={fileContent} />
         <div className="mt-4">
           <h1 className="font-bold text-2xl">File content:</h1>
           <p className="mt-4 whitespace-pre-wrap">{fileContent}</p>
