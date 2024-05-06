@@ -10,7 +10,15 @@ export default function SearchBox({ content }) {
   }
 
   function handleSearch() {
-    const regex = new RegExp(searchTerm, "gi");
+    if (searchTerm === "") {
+      setSearchResults(null);
+      return;
+    }
+    const searchTermForRegex = searchTerm.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    );
+    const regex = new RegExp(`(${searchTermForRegex})`, "gi");
     const result = content.match(regex);
     setSearchResults(result || []);
     console.log(result);

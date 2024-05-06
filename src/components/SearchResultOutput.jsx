@@ -1,6 +1,11 @@
 export default function SearchResultOutput({ content, searchTerm }) {
   const highlightResults = (text, term) => {
-    const regex = new RegExp(`(${term})`, "gi");
+    if (!term) {
+      return text;
+    }
+
+    const searchTermForRegex = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${searchTermForRegex})`, "gi");
     const parts = text.split(regex);
     return parts.map((part, index) => {
       if (part.match(regex)) {
