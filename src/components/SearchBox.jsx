@@ -4,6 +4,7 @@ import SearchResultOutput from "./SearchResultOutput";
 export default function SearchBox({ content }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   function handleChange(e) {
     setSearchTerm(e.target.value);
@@ -22,8 +23,17 @@ export default function SearchBox({ content }) {
     const regex = new RegExp(`(${searchTermForRegex})`, "gi");
     const result = content.match(regex);
     setSearchResults(result || []);
-    console.log(result);
+
+    if (searchTerm && !searchHistory.includes(searchTerm)) {
+      const updatedHistory = [searchTerm, ...searchHistory.slice(0, 7)];
+      setSearchHistory(updatedHistory);
+    }
   }
+
+  const handleSearchHistoryClick = (term) => {
+    setSearchTerm(term);
+    handleSearch();
+  };
 
   return (
     <>
@@ -47,7 +57,7 @@ export default function SearchBox({ content }) {
         <div className="flex gap-2">
           <input
             type="text"
-            className="border-2 border-gray-300 outline-gray-700 bg-white h-10 px-5 pr-16 rounded-lg text-sm"
+            className="border-2 border-gray-300 outline-gray-700 bg-white h-10 px-5 pr-16 rounded-lg text-sm w-full"
             placeholder="Search..."
             value={searchTerm}
             onChange={handleChange}
@@ -59,6 +69,17 @@ export default function SearchBox({ content }) {
             Search
           </button>
         </div>
+      </div>
+      <div className="mt-2 flex flex-col items-end">
+        {searchHistory.map((term, index) => (
+          <span
+            key={index}
+            className="cursor-pointer w-72 overflow-clip text-right tracking-wider text-sm text-gray-500 hover:text-black hover:font-bold"
+            onClick={() => handleSearchHistoryClick(term)}
+          >
+            {term}
+          </span>
+        ))}
       </div>
       <div className="mt-4">
         <h1 className="font-bold text-2xl">File content:</h1>
