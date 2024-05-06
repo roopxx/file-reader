@@ -7,6 +7,7 @@ export default function SearchBox({ content }) {
 
   function handleChange(e) {
     setSearchTerm(e.target.value);
+    setSearchResults(null);
   }
 
   function handleSearch() {
@@ -26,7 +27,23 @@ export default function SearchBox({ content }) {
 
   return (
     <>
-      <div className="mt-4 flex items-center ">
+      <div className="mt-4 flex items-center justify-end">
+        {searchResults && (
+          <div className="flex-1 text-left text-sm text-gray-700">
+            <h2 className="text-xl font-bold mb-2">Search Results:</h2>
+            <p>
+              The term{" "}
+              <span className="bg-gray-200 px-2 py-1 rounded-lg font-bold text-gray-800">
+                &quot;{searchTerm}&quot;
+              </span>{" "}
+              was found{" "}
+              <span className="bg-gray-200 px-2 py-1 rounded-lg font-bold text-gray-800">
+                {searchResults.length}
+              </span>{" "}
+              times in the file.
+            </p>
+          </div>
+        )}
         <div className="flex gap-2">
           <input
             type="text"
@@ -42,12 +59,6 @@ export default function SearchBox({ content }) {
             Search
           </button>
         </div>
-        {searchResults && (
-          <div className="flex-1 ml-4 text-center text-sm text-gray-700">
-            <h2 className="text-xl font-bold mb-2">Search Results</h2>
-            <p>Total occurrences: {searchResults.length}</p>
-          </div>
-        )}
       </div>
       <div className="mt-4">
         <h1 className="font-bold text-2xl">File content:</h1>

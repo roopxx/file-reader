@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { MdDriveFolderUpload } from "react-icons/md";
 
 export default function FileUpload({ onUpload }) {
+  const [fileDetail, setFileDetail] = useState();
   const fileInputRef = useRef(null);
 
   const handleFileUpload = (e) => {
@@ -13,12 +14,17 @@ export default function FileUpload({ onUpload }) {
         `This file format is not supported: ${file.type || "unknown file type"}.
         Please upload a text file and try again..`
       );
+      setFileDetail(null);
       return;
     }
 
     const reader = new FileReader();
 
     reader.onload = (e) => {
+      setFileDetail({
+        name: file.name,
+        wordCount: e.target.result.split(" ").length,
+      });
       onUpload(e.target.result);
     };
 
@@ -44,6 +50,12 @@ export default function FileUpload({ onUpload }) {
         type="file"
         id="file"
       />
+      {fileDetail && (
+        <div className="bg-gray-100 p-4 mt-4 rounded">
+          <p>File name : {fileDetail?.name}</p>
+          <p>File word count : {fileDetail?.wordCount}</p>
+        </div>
+      )}
     </>
   );
 }

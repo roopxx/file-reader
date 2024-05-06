@@ -23,7 +23,7 @@ export default function SearchResultOutput({ content, searchTerm }) {
   return (
     <div>
       <div className="mt-4">
-        <pre className="whitespace-pre-wrap">
+        <pre className="whitespace-pre-line">
           {highlightResults(content, searchTerm)}
         </pre>
       </div>
