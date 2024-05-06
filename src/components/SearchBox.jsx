@@ -70,11 +70,11 @@ export default function SearchBox({ content }) {
           </button>
         </div>
       </div>
-      <div className="mt-2 flex flex-col items-end">
+      <div className="search-history mt-2 flex flex-col items-end">
         {searchHistory.map((term, index) => (
           <span
             key={index}
-            className="cursor-pointer w-72 overflow-clip text-right tracking-wider text-sm text-gray-500 hover:text-black hover:font-bold"
+            className="search-history-item cursor-pointer w-72 overflow-clip text-right tracking-wider text-sm text-gray-500 hover:text-black hover:font-bold"
             onClick={() => handleSearchHistoryClick(term)}
           >
             {term}

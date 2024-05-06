@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  #search-history {
+    position: absolute;
+    width: calc(100% - 2px);
+    border: 1px solid #4a5568;
+    background-color: #ffffff;
+    list-style: none;
+    padding: 0;
+    margin-top: 2px;
+  }
+
+  .search-history-item {
+    display: block;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+
+  .search-history-item:hover {
+    background-color: #ebf4ff;
+  }
+}
