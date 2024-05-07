@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MdDriveFolderUpload } from "react-icons/md";
+import propTypes from "prop-types";
 
 export default function FileUpload({ onUpload }) {
   const [fileDetail, setFileDetail] = useState();
@@ -90,3 +91,7 @@ export default function FileUpload({ onUpload }) {
     </>
   );
 }
+
+FileUpload.propTypes = {
+  onUpload: propTypes.func.isRequired,
+};

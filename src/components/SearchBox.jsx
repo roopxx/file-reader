@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchResultOutput from "./SearchResultOutput";
+import propTypes from "prop-types";
 
 export default function SearchBox({ content }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -130,3 +131,7 @@ export default function SearchBox({ content }) {
     </>
   );
 }
+
+SearchBox.propTypes = {
+  content: propTypes.string.isRequired,
+};

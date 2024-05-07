@@ -1,3 +1,5 @@
+import propTypes from "prop-types";
+
 export default function SearchResultOutput({ content, searchTerm }) {
   const highlightResults = (text, term) => {
     if (!term) {
@@ -30,3 +32,8 @@ export default function SearchResultOutput({ content, searchTerm }) {
     </div>
   );
 }
+
+SearchResultOutput.propTypes = {
+  content: propTypes.string.isRequired,
+  searchTerm: propTypes.string.isRequired,
+};
