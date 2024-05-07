@@ -1,10 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchResultOutput from "./SearchResultOutput";
 
 export default function SearchBox({ content }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [searchHistory, setSearchHistory] = useState([]);
+
+  useEffect(() => {
+    const handleKeyEvents = (e) => {
+      switch (e.key) {
+        case "Enter":
+          handleSearch();
+          break;
+        case "Escape":
+          setSearchTerm("");
+          setSearchResults(null);
+          break;
+        case "s" || "S":
+          document.querySelector("#search-input").focus();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyEvents);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyEvents);
+    };
+  }, []);
 
   function handleChange(e) {
     setSearchTerm(e.target.value);
@@ -56,6 +81,7 @@ export default function SearchBox({ content }) {
         )}
         <div className="flex gap-2">
           <input
+            id="search-input"
             type="text"
             className="border-2 border-gray-300 outline-gray-700 bg-white h-10 px-5 pr-16 rounded-lg text-sm w-full"
             placeholder="Search..."
