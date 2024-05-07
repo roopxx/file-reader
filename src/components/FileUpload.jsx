@@ -6,11 +6,22 @@ export default function FileUpload({ onUpload }) {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    let hasFileUpload = false;
+
     const handleKeyEvents = (e) => {
       switch (e.key) {
-        case "u" || "U":
-          fileInputRef.current.click();
+        case "u":
+        case "U":
+          if (!hasFileUpload) {
+            fileInputRef.current.click();
+            hasFileUpload = true;
+          }
           break;
+        case "Delete":
+          setFileDetail(null);
+          onUpload("");
+          break;
+
         default:
           break;
       }
@@ -29,7 +40,9 @@ export default function FileUpload({ onUpload }) {
     if (!file || !file.type.includes("text")) {
       alert("Please upload a text file.");
       onUpload(
-        `This file format is not supported: ${file.type || "unknown file type"}.
+        `This file format is not supported: ${
+          file?.type || "unknown file type"
+        }.
         Please upload a text file and try again..`
       );
       setFileDetail(null);

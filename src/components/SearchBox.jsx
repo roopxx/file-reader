@@ -7,17 +7,22 @@ export default function SearchBox({ content }) {
   const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
+    let hasFocus = false;
+    const input = document.querySelector("#search-input");
+
     const handleKeyEvents = (e) => {
       switch (e.key) {
-        case "Enter":
-          handleSearch();
-          break;
         case "Escape":
           setSearchTerm("");
           setSearchResults(null);
           break;
-        case "s" || "S":
-          document.querySelector("#search-input").focus();
+        case "s":
+        case "S":
+          if (!hasFocus) {
+            e.preventDefault();
+            input.focus();
+            hasFocus = true;
+          }
           break;
         default:
           break;
@@ -25,9 +30,15 @@ export default function SearchBox({ content }) {
     };
 
     window.addEventListener("keydown", handleKeyEvents);
+    window.addEventListener("click", () => {
+      hasFocus = false;
+    });
 
     return () => {
       window.removeEventListener("keydown", handleKeyEvents);
+      window.removeEventListener("click", () => {
+        hasFocus = false;
+      });
     };
   }, []);
 
@@ -87,6 +98,11 @@ export default function SearchBox({ content }) {
             placeholder="Search..."
             value={searchTerm}
             onChange={handleChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
           />
           <button
             onClick={handleSearch}
