@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="text-2xl absolute bottom-0 py-3 left-0 flex items-center justify-center gap-4 w-full px-10 bg-gray-800 text-white">
+    <div className="text-xs md:text-2xl absolute bottom-0 py-2 md:py-3 left-0 flex items-center justify-center gap-4 w-full px-10 bg-gray-800 text-white">
       <p>
         Creative Dalaal Assignment ©
         <script>document.write(new Date().getFullYear());</script>
