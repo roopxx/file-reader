@@ -1,9 +1,27 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdDriveFolderUpload } from "react-icons/md";
 
 export default function FileUpload({ onUpload }) {
   const [fileDetail, setFileDetail] = useState();
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyEvents = (e) => {
+      switch (e.key) {
+        case "u" || "U":
+          fileInputRef.current.click();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyEvents);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyEvents);
+    };
+  }, []);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
