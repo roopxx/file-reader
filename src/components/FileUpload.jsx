@@ -65,29 +65,31 @@ export default function FileUpload({ onUpload }) {
 
   return (
     <>
-      <h1 className="font-bold text-2xl">
-        Upload your file to read its content.
-      </h1>
-      <button
-        className="flex gap-4 items-center justify-center bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 cursor-pointer"
-        onClick={() => fileInputRef.current.click()}
-      >
-        <MdDriveFolderUpload className="text-white text-2xl" />
-        Upload
-      </button>
-      <input
-        className="hidden"
-        onChange={handleFileUpload}
-        ref={fileInputRef}
-        type="file"
-        id="file"
-      />
-      {fileDetail && (
-        <div className="bg-gray-100 p-4 mt-4 rounded">
-          <p>File name : {fileDetail?.name}</p>
-          <p>File word count : {fileDetail?.wordCount}</p>
-        </div>
-      )}
+      <div className="bg-white p-4 rounded shadow-md shadow-gray-400">
+        <h1 className="font-bold text-2xl">
+          Upload your file to read its content.
+        </h1>
+        <button
+          className="flex gap-4 items-center justify-center bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-4 cursor-pointer"
+          onClick={() => fileInputRef.current.click()}
+        >
+          <MdDriveFolderUpload className="text-white text-2xl" />
+          Upload
+        </button>
+        <input
+          className="hidden"
+          onChange={handleFileUpload}
+          ref={fileInputRef}
+          type="file"
+          id="file"
+        />
+        {fileDetail && (
+          <div className="border-4 border-double mt-4 pt-4 border-gray-500 bg-blue-50 p-4 w-fit">
+            <p>File name : {fileDetail?.name}</p>
+            <p>File word count : {fileDetail?.wordCount}</p>
+          </div>
+        )}
+      </div>
     </>
   );
 }

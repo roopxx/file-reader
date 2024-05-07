@@ -23,7 +23,7 @@ export default function SearchResultOutput({ content, searchTerm }) {
   };
 
   return (
-    <div>
+    <div className="border border-gray-300 p-4 rounded-lg shadow-md shadow-gray-400 overflow-hidden break-words">
       <div className="mt-4">
         <pre className="whitespace-pre-line">
           {highlightResults(content, searchTerm)}

@@ -74,7 +74,7 @@ export default function SearchBox({ content }) {
 
   return (
     <>
-      <div className="mt-4 flex items-center justify-end">
+      <div className="mt-2 flex items-center justify-end">
         {searchResults && (
           <div className="flex-1 text-left text-sm text-gray-700">
             <h2 className="text-xl font-bold mb-2">Search Results:</h2>
@@ -91,7 +91,7 @@ export default function SearchBox({ content }) {
             </p>
           </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-2 bg-gray-200 shadow-md rounded-lg p-2 border border-gray-300 w-96">
           <input
             id="search-input"
             type="text"
@@ -113,7 +113,7 @@ export default function SearchBox({ content }) {
           </button>
         </div>
       </div>
-      <div className="search-history mt-2 flex flex-col items-end">
+      <div className="search-history mt-1 flex flex-col items-end">
         {searchHistory.map((term, index) => (
           <span
             key={index}
@@ -124,7 +124,8 @@ export default function SearchBox({ content }) {
           </span>
         ))}
       </div>
-      <div className="mt-4">
+      <hr className="border border-black mt-1" />
+      <div className="my-4">
         <h1 className="font-bold text-2xl">File content:</h1>
       </div>
       <SearchResultOutput content={content} searchTerm={searchTerm} />
