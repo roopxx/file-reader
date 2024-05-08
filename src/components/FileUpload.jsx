@@ -11,8 +11,7 @@ export default function FileUpload({ onUpload }) {
 
     const handleKeyEvents = (e) => {
       switch (e.key) {
-        case "u":
-        case "U":
+        case "Insert":
           if (!hasFileUpload) {
             fileInputRef.current.click();
             hasFileUpload = true;

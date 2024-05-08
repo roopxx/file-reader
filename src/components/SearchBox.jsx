@@ -48,28 +48,25 @@ export default function SearchBox({ content }) {
     setSearchResults(null);
   }
 
-  function handleSearch() {
-    if (searchTerm === "") {
+  function handleSearch(term = searchTerm) {
+    if (term === "") {
       setSearchResults(null);
       return;
     }
-    const searchTermForRegex = searchTerm.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&"
-    );
+    const searchTermForRegex = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(`(${searchTermForRegex})`, "gi");
     const result = content.match(regex);
     setSearchResults(result || []);
 
-    if (searchTerm && !searchHistory.includes(searchTerm)) {
-      const updatedHistory = [searchTerm, ...searchHistory.slice(0, 7)];
+    if (term && !searchHistory.includes(term)) {
+      const updatedHistory = [term, ...searchHistory.slice(0, 7)];
       setSearchHistory(updatedHistory);
     }
   }
 
   const handleSearchHistoryClick = (term) => {
     setSearchTerm(term);
-    handleSearch();
+    handleSearch(term);
   };
 
   return (
@@ -101,12 +98,12 @@ export default function SearchBox({ content }) {
             onChange={handleChange}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleSearch();
+                handleSearch(searchTerm);
               }
             }}
           />
           <button
-            onClick={handleSearch}
+            onClick={() => handleSearch(searchTerm)}
             className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
           >
             Search
